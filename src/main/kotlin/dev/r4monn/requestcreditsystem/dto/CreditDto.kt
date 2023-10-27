@@ -2,14 +2,16 @@ package dev.r4monn.requestcreditsystem.dto
 
 import dev.r4monn.requestcreditsystem.entity.Credit
 import dev.r4monn.requestcreditsystem.entity.Customer
+import jakarta.validation.constraints.Future
+import jakarta.validation.constraints.NotNull
 import java.math.BigDecimal
 import java.time.LocalDate
 
 data class CreditDto(
-    val creditValue: BigDecimal,
-    val dayFirstInstallment: LocalDate,
+    @field:NotNull(message = "This field cannot be null") val creditValue: BigDecimal,
+    @field:Future val dayFirstInstallment: LocalDate,
     val numberOfInstallments: Int,
-    val customerId: Long,
+    @field:NotNull(message = "This field cannot be null") val customerId: Long,
 ) {
     fun toEntity(): Credit = Credit(
         creditValue = this.creditValue,

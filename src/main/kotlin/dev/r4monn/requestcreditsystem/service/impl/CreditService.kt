@@ -1,6 +1,7 @@
 package dev.r4monn.requestcreditsystem.service.impl
 
 import dev.r4monn.requestcreditsystem.entity.Credit
+import dev.r4monn.requestcreditsystem.exception.BusinessException
 import dev.r4monn.requestcreditsystem.repository.CreditRepository
 import dev.r4monn.requestcreditsystem.service.ICreditService
 import org.springframework.stereotype.Service
@@ -24,7 +25,7 @@ class CreditService(
 
     override fun findByCreditCode(customerId: Long, creditCode: UUID): Credit {
         val credit: Credit = (this.creditRepository.findByCreditCode(creditCode)
-                ?: throw RuntimeException("Credit code $creditCode not found."))
+                ?: throw BusinessException("Credit code $creditCode not found."))
 
         return if (credit.customer?.id == customerId) credit else throw RuntimeException("Contact admin")
     }

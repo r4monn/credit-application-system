@@ -5,6 +5,7 @@ import dev.r4monn.requestcreditsystem.dto.CreditView
 import dev.r4monn.requestcreditsystem.dto.CreditViewList
 import dev.r4monn.requestcreditsystem.entity.Credit
 import dev.r4monn.requestcreditsystem.service.impl.CreditService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -24,7 +25,7 @@ class CreditController(
 ) {
 
     @PostMapping
-    fun saveCredit(@RequestBody creditDto: CreditDto): ResponseEntity<String> {
+    fun saveCredit(@RequestBody @Valid creditDto: CreditDto): ResponseEntity<String> {
         val credit: Credit = this.creditService.save(creditDto.toEntity())
         return ResponseEntity
             .status(HttpStatus.CREATED)
